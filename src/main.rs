@@ -1,6 +1,5 @@
 use actix_web::{web, App, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
-use serde_json::Json;
 
 #[derive(Deserialize, Serialize)]
 struct User {
@@ -27,9 +26,9 @@ async fn main() -> std::io::Result<()> {
 
 async fn get_users() -> impl Responder {
     let users = vec![User { id: 1, name: "Alice".to_string() }];
-    Json(users)
+    web::Json(users)
 }
 
-async fn create_user(Json(user): Json<User>) -> impl Responder {
-    Json(user)
+async fn create_user(web::Json(user): web::Json<User>) -> impl Responder {
+    web::Json(user)
 }
